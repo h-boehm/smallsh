@@ -71,7 +71,6 @@ void shell_exit(int status)
 {
   fprintf(stderr, "\nexit\n");
   // send SIGINT to child processes in the same process group
-  // signal number from Canvas Exploration: Signals - Concepts and Types
   for (int i; i < 4; i++) {
     if (process_arr[i] != -1) {
       kill(process_arr[i], 2);
@@ -278,8 +277,6 @@ char **split_words(char *line)
     error = 1;
   }
   char *token;
-  // strtok loop adapted from: 
-  // web.eecs.utk.edu/~bvanderz/teaching/cs140Fa09/labs/lab3/strtok.html
   token = strtok(line, IFS);
   int index = 0;
   // returns NULL when there are no more tokens
@@ -358,7 +355,6 @@ int main(int argc, char *argv[])
     }
     // if stopped
     if (WIFSTOPPED(child_status) && process_id > 0) {
-      // signal number from: man7.org/linux/man-pages/man7/signal.7.html
       kill(process_id, 18);
       fprintf(stderr, "Child process %jd stopped. Continuing.\n", (intmax_t) process_id);
     }
@@ -427,7 +423,6 @@ int main(int argc, char *argv[])
 
       // execute process
       else {
-        // adapted from Canvas Exploation: Process API - Executing a New Program
         // fork a new process
         pid_t process_id = fork();
         if (process_id == -1) {
@@ -444,7 +439,6 @@ int main(int argc, char *argv[])
 
           case 0:
             // in the child process
-            // code adapted from Canvas Exploration: Files
             if (infile != NULL) {
               // open/create file from infile string var
               int file_descriptor = open(infile, O_RDONLY, 0777);
